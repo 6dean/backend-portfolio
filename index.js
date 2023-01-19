@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 
 const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
 mongoose.connect(`${process.env.MONGODB_ACCES}`);
 
 app.use(express.json());
