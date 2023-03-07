@@ -105,6 +105,24 @@ app.post("/spotify", async (req, res) => {
   }
 });
 
+app.post("/youtube", async (req, res) => {
+  const token = req.body.tokenYoutube;
+  try {
+    const response = await axios.get(
+      `https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&channelId=UCDHP2684qXjMio649zLnLOg&maxResults=999`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    res.status(200).json(response.data.items);
+    console.log(response.data);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+
 app.all("*", (req, res) => {
   res.status(404).json({ message: "Ooops , are you lost ?" });
 });
